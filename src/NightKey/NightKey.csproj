@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>NightKey</RootNamespace>
+    <AssemblyName>NightKey</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\nightkey.ico</ApplicationIcon>
+
+    <!-- Product info (shows in Properties > Details and in Apps & features) -->
+    <Product>NightKey</Product>
+    <Company>Night Tech Solutions</Company>
+    <Authors>Night Tech Solutions</Authors>
+    <Description>NightKey two-step verification codes for Windows</Description>
+    <Copyright>© 2026 Night Tech Solutions</Copyright>
+    <Version>1.1.0</Version>
+
+    <!-- Release publishing: one self-contained exe, no .NET install needed on the customer's PC -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>none</DebugType>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <!-- Microsoft Store build: dotnet publish -p:StoreBuild=true (packaged as MSIX by build-store.ps1). The Store handles updates. -->
+  <PropertyGroup Condition="'$(StoreBuild)' == 'true'">
+    <DefineConstants>$(DefineConstants);STORE</DefineConstants>
+    <!-- Inside an MSIX package the files are installed, not unpacked to a temp folder. -->
+    <PublishSingleFile>false</PublishSingleFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ZXing.Net" Version="0.16.9" />
+    <Resource Include="Assets\nightkey.ico" />
+    <Resource Include="Assets\nighttech-logo.png" />
+  </ItemGroup>
+</Project>

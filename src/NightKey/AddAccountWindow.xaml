@@ -1,0 +1,73 @@
+<Window x:Class="NightKey.AddAccountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add account" Width="460" SizeToContent="Height" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{StaticResource NightBrush}" Foreground="{StaticResource StarlightBrush}"
+        FontFamily="{StaticResource UiFont}" FontSize="14">
+  <StackPanel Margin="24,20,24,22">
+    <TextBlock Text="Add an account" FontFamily="{StaticResource DisplayFont}" FontWeight="SemiBold" FontSize="22"/>
+    <TextBlock TextWrapping="Wrap" Foreground="{StaticResource HazeBrush}" Margin="0,6,0,14"
+               Text="Open the site's two-step sign-in setup so its QR code is on screen, then choose Scan screen."/>
+
+    <WrapPanel>
+      <Button x:Name="ScanButton" Content="Scan screen" Style="{StaticResource PrimaryButton}" Margin="0,0,8,8"
+              Click="ScanScreen_Click"/>
+      <Button x:Name="PasteButton" Content="Paste" Style="{StaticResource GhostButton}" Margin="0,0,8,8"
+              Click="Paste_Click" ToolTip="Paste a copied QR code image, setup link or secret key"/>
+      <Button x:Name="OpenButton" Content="Open image…" Style="{StaticResource GhostButton}" Margin="0,0,8,8"
+              Click="Open_Click"/>
+    </WrapPanel>
+
+    <TextBlock x:Name="MessageText" TextWrapping="Wrap" FontSize="13" Margin="0,4,0,0" Visibility="Collapsed"/>
+
+    <Border Height="1" Background="{StaticResource HorizonBrush}" Margin="0,16,0,14"/>
+
+    <TextBlock Text="Or enter the setup key yourself" FontWeight="SemiBold"/>
+
+    <TextBlock Text="Service" Style="{StaticResource FieldLabel}"/>
+    <TextBox x:Name="IssuerBox" Tag="For example, Microsoft or Square"/>
+
+    <TextBlock Text="Account" Style="{StaticResource FieldLabel}"/>
+    <TextBox x:Name="NameBox" Tag="Usually your email or username"/>
+
+    <TextBlock Text="Secret key" Style="{StaticResource FieldLabel}"/>
+    <TextBox x:Name="SecretBox" Tag="The site shows it under “Can't scan the code?”"
+             FontFamily="Cascadia Mono, Consolas"/>
+
+    <Expander x:Name="AdvancedExpander" Header="Advanced settings" Margin="0,14,0,0">
+      <Grid Margin="0,6,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Algorithm" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,10,16,0"/>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,10,0,0" VerticalAlignment="Center">
+          <RadioButton x:Name="Sha1Radio" Content="SHA-1" GroupName="Alg" IsChecked="True"/>
+          <RadioButton x:Name="Sha256Radio" Content="SHA-256" GroupName="Alg"/>
+          <RadioButton x:Name="Sha512Radio" Content="SHA-512" GroupName="Alg"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Text="Digits" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,10,16,0"/>
+        <TextBox x:Name="DigitsBox" Grid.Row="1" Grid.Column="1" Text="6" Width="80" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+
+        <TextBlock Grid.Row="2" Text="Period" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,10,16,0"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,10,0,0">
+          <TextBox x:Name="PeriodBox" Text="30" Width="80"/>
+          <TextBlock Text="seconds" Foreground="{StaticResource HazeBrush}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        </StackPanel>
+      </Grid>
+    </Expander>
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,22,0,0">
+      <Button Content="Cancel" Style="{StaticResource GhostButton}" IsCancel="True" Margin="0,0,8,0"/>
+      <Button Content="Add account" Style="{StaticResource PrimaryButton}" IsDefault="True" Click="Add_Click"/>
+    </StackPanel>
+  </StackPanel>
+</Window>
